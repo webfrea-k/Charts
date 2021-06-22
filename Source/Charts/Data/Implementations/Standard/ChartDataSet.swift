@@ -248,6 +248,7 @@ open class ChartDataSet: ChartBaseDataSet
             }
 
             var closestYValue = self[closest].y
+            var closestYIndex = closest
             while closest < endIndex
             {
                 formIndex(after: &closest)
