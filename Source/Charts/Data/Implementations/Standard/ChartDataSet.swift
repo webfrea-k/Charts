@@ -214,7 +214,7 @@ open class ChartDataSet: ChartBaseDataSet
         rounding: ChartDataSetRounding) -> Int
     {
         var closest = partitioningIndex { $0.x >= xValue }
-        guard closest < endIndex else { return -1 }
+        guard closest < endIndex else { return closest }
 
         let closestXValue = self[closest].x
 
@@ -237,6 +237,8 @@ open class ChartDataSet: ChartBaseDataSet
             break
         }
 
+        guard closest < endIndex else { return endIndex }
+        
         // Search by closest to y-value
         if !yValue.isNaN
         {
@@ -246,9 +248,7 @@ open class ChartDataSet: ChartBaseDataSet
             }
 
             var closestYValue = self[closest].y
-            var closestYIndex = closest
-
-            while closest < index(before: endIndex)
+            while closest < endIndex
             {
                 formIndex(after: &closest)
                 let value = self[closest]
